@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
@@ -55,13 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
         question.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
 
-            // Close all
             faqItems.forEach(other => {
                 other.classList.remove('active');
                 other.querySelector('.faq-answer').style.maxHeight = '0';
             });
 
-            // Open clicked (if it wasn't already open)
             if (!isActive) {
                 item.classList.add('active');
                 answer.style.maxHeight = answer.scrollHeight + 'px';
