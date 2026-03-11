@@ -1155,39 +1155,26 @@ body {
     }
 
     .hero-visual {
-        position: relative;
-        height: auto;
-        display: flex;
-        gap: 1rem;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        padding-bottom: 0.5rem;
-    }
-
-    .hero-visual::-webkit-scrollbar {
-        display: none;
+        height: 340px;
     }
 
     .mock-card {
-        position: relative;
-        top: auto;
-        left: auto;
-        right: auto;
-        bottom: auto;
-        width: 180px;
-        flex: 0 0 180px;
-        transform: none;
-        animation: none;
-        scroll-snap-align: start;
+        width: 170px;
     }
 
-    .mock-card-1,
-    .mock-card-2,
+    .mock-card-1 {
+        top: 0;
+        left: 0;
+    }
+
+    .mock-card-2 {
+        top: 40px;
+        right: 0;
+    }
+
     .mock-card-3 {
-        transform: none;
-        animation: none;
+        bottom: 0;
+        left: 30%;
     }
 
     .mock-thumb {
@@ -1226,9 +1213,20 @@ body {
         display: none;
     }
 
+    .hero-visual {
+        height: 300px;
+    }
+
     .mock-card {
-        width: 160px;
-        flex: 0 0 160px;
+        width: 140px;
+    }
+
+    .mock-card-1 { left: 0; }
+    .mock-card-2 { right: 0; }
+    .mock-card-3 { left: 25%; }
+
+    .mock-thumb {
+        height: 85px;
     }
 
     .example-card {
