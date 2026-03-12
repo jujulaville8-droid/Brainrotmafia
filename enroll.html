@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enroll — Brain Rot Mafia</title>
+    <meta name="description" content="Complete your enrollment for Brain Rot Mafia — the AI-powered short-form content system.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Replace YOUR_STRIPE_PUBLISHABLE_KEY with your pk_test_ or pk_live_ key -->
+    <meta name="stripe-key" content="YOUR_STRIPE_PUBLISHABLE_KEY">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-logo">BRAIN ROT<span>MAFIA</span></a>
+            <div class="nav-links">
+                <a href="index.html">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enroll Section -->
+    <section class="enroll-section">
+        <div class="enroll-glow"></div>
+        <div class="container">
+            <div class="enroll-wrapper">
+                <div class="enroll-card">
+                    <span class="eyebrow">Final Step</span>
+                    <h1>You're One Step Away From <span class="text-gradient">The System</span></h1>
+                    <p class="enroll-sub">Complete your enrollment below and get instant access to the full Brain Rot Mafia vault — video modules, AI prompts, workflows, and the private community.</p>
+
+                    <!-- What's included recap -->
+                    <div class="enroll-includes">
+                        <h3>What you're getting:</h3>
+                        <ul class="pricing-features">
+                            <li><i class="fa-solid fa-check"></i> 12+ Video Training Modules</li>
+                            <li><i class="fa-solid fa-check"></i> 50+ Done-For-You AI Prompts</li>
+                            <li><i class="fa-solid fa-check"></i> Content Workflow Systems</li>
+                            <li><i class="fa-solid fa-check"></i> Tool Stack & Monetization Playbook</li>
+                            <li><i class="fa-solid fa-check"></i> Private Discord Community</li>
+                            <li><i class="fa-solid fa-check"></i> Future Updates + Weekly Q&A Calls</li>
+                        </ul>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="enroll-price-row">
+                        <div class="price-current">$297</div>
+                        <div class="price-note">One-time payment · Lifetime access</div>
+                    </div>
+
+                    <!-- Acknowledgment checkbox -->
+                    <div class="enroll-checkbox-row">
+                        <input type="checkbox" id="acknowledge-checkbox">
+                        <label for="acknowledge-checkbox">
+                            I understand this is a digital product that provides access to online training content. By continuing, I confirm I have read the <a href="terms.html" target="_blank">Terms of Service</a> and <a href="refund.html" target="_blank">Refund Policy</a>.
+                        </label>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <button id="enroll-cta" class="btn-primary btn-large btn-full btn-disabled" disabled>
+                        Pay Now <i class="fa-solid fa-lock"></i>
+                    </button>
+
+                    <p class="enroll-digital-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        This is a one-time purchase for a digital product. You will receive access details via email after payment.
+                    </p>
+
+                    <!-- Guarantee -->
+                    <div class="pricing-guarantee">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>30-Day Money-Back Guarantee — Zero Risk</span>
+                    </div>
+
+                    <!-- Stripe Embedded Checkout mounts here -->
+                    <div id="checkout-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="nav-logo">BRAIN ROT<span>MAFIA</span></a>
+                <p>The AI-powered short-form content system.</p>
+            </div>
+            <div class="footer-links">
+                <a href="terms.html">Terms of Service</a>
+                <a href="refund.html">Refund Policy</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Brain Rot Mafia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="enroll.js"></script>
+</body>
+</html>
