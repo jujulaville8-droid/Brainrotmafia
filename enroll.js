@@ -37,7 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to create checkout session');
+                const errData = await response.json().catch(() => ({}));
+                console.error('Checkout session error:', errData);
+                throw new Error(errData.error || 'Failed to create checkout session');
             }
 
             const { clientSecret } = await response.json();
