@@ -709,6 +709,16 @@ body {
     align-items: flex-end;
 }
 
+.example-thumb.example-video {
+    align-items: stretch;
+}
+
+.example-thumb.example-video iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
 .example-grad-1 { background: linear-gradient(160deg, #ff006e, #8338ec, #3a0ca3); }
 .example-grad-2 { background: linear-gradient(160deg, #00e5ff, #3a86ff, #7209b7); }
 .example-grad-3 { background: linear-gradient(160deg, #ff6b00, #ff006e, #c9184a); }
