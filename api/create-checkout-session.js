@@ -9,7 +9,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const origin = req.headers.origin || req.headers.referer?.replace(/\/[^/]*$/, '') || 'https://yourdomain.com';
+    const origin = req.headers.origin || req.headers.referer?.replace(/\/[^/]*$/, '') || 'https://brainrotmafia.vercel.app';
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
@@ -25,7 +25,7 @@ module.exports = async function handler(req, res) {
 
     res.status(200).json({ clientSecret: session.client_secret });
   } catch (err) {
-    console.error('Stripe session error:', err);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    console.error('Stripe session error:', err.message);
+    res.status(500).json({ error: err.message || 'Failed to create checkout session' });
   }
 };
