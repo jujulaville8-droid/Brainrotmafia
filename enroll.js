@@ -3,25 +3,13 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    const checkbox = document.getElementById('acknowledge-checkbox');
     const ctaButton = document.getElementById('enroll-cta');
     const checkoutContainer = document.getElementById('checkout-container');
     let checkoutInitiated = false;
 
-    // Toggle button disabled state based on checkbox
-    checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-            ctaButton.classList.remove('btn-disabled');
-            ctaButton.disabled = false;
-        } else {
-            ctaButton.classList.add('btn-disabled');
-            ctaButton.disabled = true;
-        }
-    });
-
     // Handle CTA click — initialize Stripe Embedded Checkout
     ctaButton.addEventListener('click', async () => {
-        if (!checkbox.checked || checkoutInitiated) return;
+        if (checkoutInitiated) return;
         checkoutInitiated = true;
 
         // Update button state
@@ -58,9 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hide the enrollment form content above checkout
             document.querySelector('.enroll-includes').style.display = 'none';
             document.querySelector('.enroll-price-row').style.display = 'none';
-            document.querySelector('.enroll-checkbox-row').style.display = 'none';
             document.querySelector('.enroll-digital-note').style.display = 'none';
-            document.querySelector('.pricing-guarantee').style.display = 'none';
             ctaButton.style.display = 'none';
 
             // Show checkout container and mount

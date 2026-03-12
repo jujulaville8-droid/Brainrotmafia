@@ -34,18 +34,34 @@
                 <h1>Welcome to <span class="text-gradient">The Mafia</span></h1>
                 <p class="status-sub">Your payment was successful. You're officially in.</p>
 
-                <div class="status-steps">
-                    <h3>Here's what happens next:</h3>
-                    <ol>
-                        <li><strong>Check your email</strong> — You'll receive a confirmation with your access details within a few minutes.</li>
-                        <li><strong>Join the Discord</strong> — Your invite link is in the email. Introduce yourself to the community.</li>
-                        <li><strong>Start Module 1</strong> — Dive into the system and post your first piece of content this week.</li>
-                    </ol>
+                <!-- Confirmation checkbox -->
+                <div class="success-confirm">
+                    <div class="enroll-checkbox-row">
+                        <input type="checkbox" id="confirm-checkbox">
+                        <label for="confirm-checkbox">
+                            I confirm that my payment has been processed and I understand I'm receiving access to the Brainrot Mafia digital training system, including video modules, AI prompts, workflows, and the private community.
+                        </label>
+                    </div>
+                    <button id="confirm-btn" class="btn-primary btn-large btn-full btn-disabled" disabled>
+                        Unlock My Access <i class="fa-solid fa-lock"></i>
+                    </button>
                 </div>
 
-                <a href="index.html" class="btn-secondary">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Home
-                </a>
+                <!-- Access details (hidden until confirmed) -->
+                <div id="access-details" style="display: none;">
+                    <div class="status-steps">
+                        <h3>Here's what happens next:</h3>
+                        <ol>
+                            <li><strong>Check your email</strong> — You'll receive a confirmation with your access details within a few minutes.</li>
+                            <li><strong>Join the Discord</strong> — Your invite link is in the email. Introduce yourself to the community.</li>
+                            <li><strong>Start Module 1</strong> — Dive into the system and post your first piece of content this week.</li>
+                        </ol>
+                    </div>
+
+                    <a href="index.html" class="btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -59,7 +75,6 @@
             </div>
             <div class="footer-links">
                 <a href="terms.html">Terms of Service</a>
-                <a href="refund.html">Refund Policy</a>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Brainrot Mafia. All rights reserved.</p>
@@ -67,5 +82,29 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('confirm-checkbox');
+            const confirmBtn = document.getElementById('confirm-btn');
+            const accessDetails = document.getElementById('access-details');
+            const confirmSection = document.querySelector('.success-confirm');
+
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    confirmBtn.classList.remove('btn-disabled');
+                    confirmBtn.disabled = false;
+                } else {
+                    confirmBtn.classList.add('btn-disabled');
+                    confirmBtn.disabled = true;
+                }
+            });
+
+            confirmBtn.addEventListener('click', () => {
+                if (!checkbox.checked) return;
+                confirmSection.style.display = 'none';
+                accessDetails.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>
