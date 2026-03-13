@@ -69,22 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile carousel auto-scroll (pauses on touch, resumes after)
+    // Infinite carousel auto-scroll (both mobile & desktop)
     const carousel = document.querySelector('.carousel-wrapper');
     if (carousel) {
+        const scrollTrack = carousel.querySelector('.examples-scroll');
         let autoScrollSpeed = 1;
         let autoScrollId = null;
         let userInteracting = false;
         let resumeTimeout = null;
+
+        // Clone all cards for seamless infinite loop
+        const cards = scrollTrack.querySelectorAll('.example-card');
+        cards.forEach(card => {
+            scrollTrack.appendChild(card.cloneNode(true));
+        });
 
         function startAutoScroll() {
             if (autoScrollId) return;
             autoScrollId = requestAnimationFrame(function tick() {
                 if (!userInteracting) {
                     carousel.scrollLeft += autoScrollSpeed;
-                    // Loop back when reaching the end
-                    if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
-                        carousel.scrollLeft = 0;
+                    // When we've scrolled past the original set, jump back seamlessly
+                    const halfScroll = scrollTrack.scrollWidth / 2;
+                    if (carousel.scrollLeft >= halfScroll) {
+                        carousel.scrollLeft -= halfScroll;
                     }
                 }
                 autoScrollId = requestAnimationFrame(tick);
