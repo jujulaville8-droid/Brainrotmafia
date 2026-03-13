@@ -867,7 +867,7 @@ body {
 
 .price-old {
     font-size: 1.2rem;
-    color: var(--text-muted);
+    color: #e53e3e;
     text-decoration: line-through;
     margin-bottom: 0.25rem;
 }
@@ -879,6 +879,7 @@ body {
     line-height: 1;
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
+    color: var(--accent-neon);
 }
 
 .price-note {
@@ -951,16 +952,25 @@ body {
     font-size: 1rem;
     color: var(--text-secondary);
     margin-top: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     padding-top: 1rem;
     border-top: 1px solid var(--glass-border);
 }
 
-.pricing-total span {
+.pricing-total-value {
     font-weight: 700;
-    color: var(--accent-neon);
-    text-decoration: line-through;
+    color: #888;
     font-size: 1.1rem;
+}
+
+.pricing-final-price {
+    text-align: center;
+    font-family: var(--font-body);
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--accent-neon);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
 }
 
 .pricing-card .btn-primary {
