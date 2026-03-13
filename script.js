@@ -102,12 +102,43 @@ document.addEventListener('DOMContentLoaded', () => {
             resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
         }, { passive: true });
 
-        // Pause on mouse interaction (for desktop testing)
-        carousel.addEventListener('mousedown', () => { userInteracting = true; });
-        carousel.addEventListener('mouseup', () => {
+        // Desktop drag-to-scroll
+        let isDragging = false;
+        let startX = 0;
+        let scrollStart = 0;
+
+        carousel.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            userInteracting = true;
+            startX = e.pageX;
+            scrollStart = carousel.scrollLeft;
+            carousel.style.cursor = 'grabbing';
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.pageX - startX;
+            carousel.scrollLeft = scrollStart - dx;
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            carousel.style.cursor = 'grab';
             if (resumeTimeout) clearTimeout(resumeTimeout);
             resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
         });
+
+        // Pause on scroll wheel
+        carousel.addEventListener('wheel', () => {
+            userInteracting = true;
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
+        }, { passive: true });
+
+        carousel.style.cursor = 'grab';
 
         startAutoScroll();
     }
