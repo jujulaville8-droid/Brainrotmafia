@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error('Checkout error:', err);
-            ctaButton.innerHTML = 'Pay Now <i class="fa-solid fa-lock"></i>';
+            ctaButton.innerHTML = 'Join Now <i class="fa-solid fa-lock"></i>';
             ctaButton.classList.remove('btn-disabled');
             ctaButton.disabled = false;
             checkoutInitiated = false;
