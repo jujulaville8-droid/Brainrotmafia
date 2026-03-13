@@ -710,7 +710,6 @@ body {
 .carousel-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
     padding: 0 0 2rem;
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.15) transparent;
@@ -742,7 +741,6 @@ body {
     border-radius: var(--radius);
     overflow: hidden;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    scroll-snap-align: center;
 }
 
 .example-card:hover {

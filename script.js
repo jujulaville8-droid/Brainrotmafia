@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile carousel auto-scroll (pauses on touch, resumes after)
     const carousel = document.querySelector('.carousel-wrapper');
     if (carousel) {
-        let autoScrollSpeed = 0.5;
+        let autoScrollSpeed = 1;
         let autoScrollId = null;
         let userInteracting = false;
         let resumeTimeout = null;
