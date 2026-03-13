@@ -759,9 +759,11 @@ body {
     align-items: stretch;
 }
 
-.example-thumb.example-video iframe {
+.example-thumb.example-video iframe,
+.example-thumb.example-video video {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     border-radius: var(--radius) var(--radius) 0 0;
 }
 
