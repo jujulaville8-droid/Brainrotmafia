@@ -179,9 +179,12 @@ body {
 }
 
 .nav-logo-img {
-    height: 36px;
-    width: auto;
-    object-fit: contain;
+    height: 44px;
+    width: 44px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #9b4dff;
+    padding: 5px;
 }
 
 .nav-logo span {
