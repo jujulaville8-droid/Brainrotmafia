@@ -1,8 +1,10 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/enroll", "destination": "/enroll.html" },
     { "source": "/success", "destination": "/success.html" },
     { "source": "/cancel", "destination": "/cancel.html" },
-    { "source": "/terms", "destination": "/terms.html" }
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/refund", "destination": "/refund.html" }
   ]
 }
