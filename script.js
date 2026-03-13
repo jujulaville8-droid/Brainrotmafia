@@ -82,11 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // For the pricing section, scroll so the full card + CTA is visible
                 let targetPos;
                 if (href === '#pricing') {
+                    // Scroll so the full pricing card is visible
+                    const sectionTop = target.getBoundingClientRect().top + window.scrollY - navHeight - 10;
                     const sectionBottom = target.getBoundingClientRect().bottom + window.scrollY;
-                    targetPos = sectionBottom - window.innerHeight + 40;
-                    // Don't scroll past the top of the section minus nav
-                    const sectionTop = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
-                    targetPos = Math.max(targetPos, sectionTop);
+                    const sectionHeight = sectionBottom - sectionTop;
+                    if (sectionHeight <= window.innerHeight) {
+                        // Card fits on screen — center it vertically
+                        targetPos = sectionTop - (window.innerHeight - sectionHeight) / 2;
+                    } else {
+                        // Card taller than viewport — align to top
+                        targetPos = sectionTop;
+                    }
                 } else {
                     targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
                 }
