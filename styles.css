@@ -672,33 +672,38 @@ body {
 /* ========================================
    EXAMPLES / PROOF
    ======================================== */
+.carousel-wrapper {
+    overflow: hidden;
+    padding: 0 0 2rem;
+}
+
 .examples-scroll {
     display: flex;
     gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 0 1.5rem 2rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    width: max-content;
+    animation: carousel-scroll 30s linear infinite;
 }
 
-.examples-scroll::-webkit-scrollbar {
-    display: none;
+.carousel-wrapper:hover .examples-scroll {
+    animation-play-state: paused;
+}
+
+@keyframes carousel-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 0.75rem)); }
 }
 
 .example-card {
     flex: 0 0 280px;
-    scroll-snap-align: start;
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .example-card:hover {
     border-color: var(--glass-border-hover);
-    transform: translateY(-4px);
     box-shadow: var(--glass-glow);
 }
 
@@ -1077,10 +1082,6 @@ body {
 .why-right .reveal:nth-child(4) { transition-delay: 0.3s; }
 .why-right .reveal:nth-child(5) { transition-delay: 0.4s; }
 
-.examples-scroll .reveal:nth-child(2) { transition-delay: 0.1s; }
-.examples-scroll .reveal:nth-child(3) { transition-delay: 0.2s; }
-.examples-scroll .reveal:nth-child(4) { transition-delay: 0.3s; }
-.examples-scroll .reveal:nth-child(5) { transition-delay: 0.4s; }
 
 /* ========================================
    RESPONSIVE
@@ -1241,6 +1242,10 @@ body {
 
     .example-card {
         flex: 0 0 240px;
+    }
+
+    .examples-scroll {
+        animation-duration: 20s;
     }
 
     .example-thumb {
