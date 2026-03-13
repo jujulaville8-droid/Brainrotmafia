@@ -69,6 +69,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Mobile carousel auto-scroll (pauses on touch, resumes after)
+    const carousel = document.querySelector('.carousel-wrapper');
+    if (carousel) {
+        let autoScrollSpeed = 0.5;
+        let autoScrollId = null;
+        let userInteracting = false;
+        let resumeTimeout = null;
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        function startAutoScroll() {
+            if (autoScrollId) return;
+            autoScrollId = requestAnimationFrame(function tick() {
+                if (!userInteracting && isMobile()) {
+                    carousel.scrollLeft += autoScrollSpeed;
+                    // Loop back when reaching the end
+                    if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
+                        carousel.scrollLeft = 0;
+                    }
+                }
+                autoScrollId = requestAnimationFrame(tick);
+            });
+        }
+
+        // Pause on touch
+        carousel.addEventListener('touchstart', () => {
+            userInteracting = true;
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', () => {
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
+        }, { passive: true });
+
+        // Pause on mouse interaction (for desktop testing)
+        carousel.addEventListener('mousedown', () => { userInteracting = true; });
+        carousel.addEventListener('mouseup', () => {
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
+        });
+
+        startAutoScroll();
+    }
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
