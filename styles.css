@@ -838,11 +838,12 @@ body {
 }
 
 .price-current {
-    font-family: var(--font-display);
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-weight: 700;
     font-size: 4rem;
     line-height: 1;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
     letter-spacing: -0.03em;
 }
 
