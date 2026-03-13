@@ -79,7 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) {
                 e.preventDefault();
                 const navHeight = navbar.offsetHeight;
-                const targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                // For the pricing section, scroll so the full card + CTA is visible
+                let targetPos;
+                if (href === '#pricing') {
+                    const sectionBottom = target.getBoundingClientRect().bottom + window.scrollY;
+                    targetPos = sectionBottom - window.innerHeight + 40;
+                    // Don't scroll past the top of the section minus nav
+                    const sectionTop = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                    targetPos = Math.max(targetPos, sectionTop);
+                } else {
+                    targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                }
                 window.scrollTo({ top: targetPos, behavior: 'smooth' });
             }
         });
