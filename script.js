@@ -77,14 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let userInteracting = false;
         let resumeTimeout = null;
 
-        function isMobile() {
-            return window.innerWidth <= 768;
-        }
-
         function startAutoScroll() {
             if (autoScrollId) return;
             autoScrollId = requestAnimationFrame(function tick() {
-                if (!userInteracting && isMobile()) {
+                if (!userInteracting) {
                     carousel.scrollLeft += autoScrollSpeed;
                     // Loop back when reaching the end
                     if (carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth) {
