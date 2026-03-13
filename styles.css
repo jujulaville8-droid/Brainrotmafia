@@ -1151,6 +1151,17 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-content .badge { order: 1; }
+    .hero-content h1 { order: 2; }
+    .hero-proof { order: 3; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .hero-sub { order: 4; }
+    .hero-ctas { order: 5; }
+
     .nav-toggle {
         display: flex;
     }
