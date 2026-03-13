@@ -82,16 +82,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 // For the pricing section, scroll so the full card + CTA is visible
                 let targetPos;
                 if (href === '#pricing') {
-                    // Scroll so the full pricing card is visible
-                    const sectionTop = target.getBoundingClientRect().top + window.scrollY - navHeight - 10;
-                    const sectionBottom = target.getBoundingClientRect().bottom + window.scrollY;
-                    const sectionHeight = sectionBottom - sectionTop;
-                    if (sectionHeight <= window.innerHeight) {
-                        // Card fits on screen — center it vertically
-                        targetPos = sectionTop - (window.innerHeight - sectionHeight) / 2;
+                    // Align top of viewport to LIFETIME ACCESS badge,
+                    // ensuring Get Instant Access button is fully visible at bottom
+                    const badge = target.querySelector('.pricing-badge');
+                    const ctaBtn = target.querySelector('.btn-full');
+                    if (badge && ctaBtn) {
+                        const badgeTop = badge.getBoundingClientRect().top + window.scrollY - navHeight - 10;
+                        const ctaBottom = ctaBtn.getBoundingClientRect().bottom + window.scrollY + 20;
+                        const neededHeight = ctaBottom - badgeTop;
+                        if (neededHeight <= window.innerHeight) {
+                            // Both fit — align badge to top of viewport
+                            targetPos = badgeTop;
+                        } else {
+                            // Too tall — scroll so CTA bottom is at viewport bottom
+                            targetPos = ctaBottom - window.innerHeight;
+                        }
                     } else {
-                        // Card taller than viewport — align to top
-                        targetPos = sectionTop;
+                        targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 10;
                     }
                 } else {
                     targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
