@@ -708,24 +708,31 @@ body {
    EXAMPLES / PROOF
    ======================================== */
 .carousel-wrapper {
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
     padding: 0 0 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+
+.carousel-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.carousel-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.carousel-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
 }
 
 .examples-scroll {
     display: flex;
     gap: 1.5rem;
     width: max-content;
-    animation: carousel-scroll 30s linear infinite;
-}
-
-.carousel-wrapper:hover .examples-scroll {
-    animation-play-state: paused;
-}
-
-@keyframes carousel-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 0.75rem)); }
 }
 
 .example-card {
@@ -735,6 +742,7 @@ body {
     border-radius: var(--radius);
     overflow: hidden;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: center;
 }
 
 .example-card:hover {
@@ -764,6 +772,10 @@ body {
 .example-grad-3 { background: linear-gradient(160deg, #ff6b00, #ff006e, #c9184a); }
 .example-grad-4 { background: linear-gradient(160deg, #39ff14, #00e5ff, #3a86ff); }
 .example-grad-5 { background: linear-gradient(160deg, #ffbe0b, #ff6b00, #ff006e); }
+.example-grad-6 { background: linear-gradient(160deg, #8338ec, #ff006e, #ffbe0b); }
+.example-grad-7 { background: linear-gradient(160deg, #3a86ff, #06d6a0, #118ab2); }
+.example-grad-8 { background: linear-gradient(160deg, #e63946, #f4a261, #e76f51); }
+.example-grad-9 { background: linear-gradient(160deg, #7209b7, #560bad, #3a0ca3); }
 
 .example-overlay {
     width: 100%;
@@ -1351,23 +1363,12 @@ body {
         flex: 0 0 240px;
     }
 
-    .carousel-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-    }
-
     .carousel-wrapper::-webkit-scrollbar {
         display: none;
     }
 
-    .examples-scroll {
-        animation: none;
-    }
-
-    .example-card {
-        scroll-snap-align: center;
+    .carousel-wrapper {
+        scrollbar-width: none;
     }
 
     .example-thumb {
