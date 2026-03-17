@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome — Brainrot Mafia</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="/" class="nav-logo"><img src="/assets/logo.png" alt="Brainrot Mafia" class="nav-logo-img">BRAINROT<span>MAFIA</span></a>
+            <div class="nav-links">
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success Content -->
+    <section class="status-section">
+        <div class="status-glow"></div>
+        <div class="container">
+            <div class="status-card">
+                <div class="status-icon status-icon-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h1>Welcome to <span class="text-gradient">The Mafia</span></h1>
+                <p class="status-sub">Your payment was successful. You're officially in.</p>
+
+                <!-- Confirmation checkbox -->
+                <div class="success-confirm">
+                    <div class="enroll-checkbox-row">
+                        <input type="checkbox" id="confirm-checkbox">
+                        <label for="confirm-checkbox">
+                            I confirm that my payment has been processed and I understand I'm receiving access to the Brainrot Mafia digital training system, including video modules, AI prompts, workflows, and the private community.
+                        </label>
+                    </div>
+                    <button id="confirm-btn" class="btn-primary btn-large btn-full btn-disabled" disabled>
+                        Unlock My Access <i class="fa-solid fa-lock"></i>
+                    </button>
+                </div>
+
+                <!-- Access details (hidden until confirmed) -->
+                <div id="access-details" style="display: none;">
+                    <div class="status-steps">
+                        <h3>Here's what happens next:</h3>
+                        <ol>
+                            <li><strong>Check your email</strong> — You'll receive a confirmation with your access details within a few minutes.</li>
+                            <li><strong>Join the Discord</strong> — Your invite link is in the email. Introduce yourself to the community.</li>
+                            <li><strong>Start Module 1</strong> — Dive into the system and post your first piece of content this week.</li>
+                        </ol>
+                    </div>
+
+                    <a href="/" class="btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="/" class="nav-logo"><img src="/assets/logo.png" alt="Brainrot Mafia" class="nav-logo-img">BRAINROT<span>MAFIA</span></a>
+                <p>The AI-powered short-form content system.</p>
+            </div>
+            <div class="footer-links">
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Brainrot Mafia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('confirm-checkbox');
+            const confirmBtn = document.getElementById('confirm-btn');
+            const accessDetails = document.getElementById('access-details');
+            const confirmSection = document.querySelector('.success-confirm');
+
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    confirmBtn.classList.remove('btn-disabled');
+                    confirmBtn.disabled = false;
+                } else {
+                    confirmBtn.classList.add('btn-disabled');
+                    confirmBtn.disabled = true;
+                }
+            });
+
+            confirmBtn.addEventListener('click', () => {
+                if (!checkbox.checked) return;
+                confirmSection.style.display = 'none';
+                accessDetails.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

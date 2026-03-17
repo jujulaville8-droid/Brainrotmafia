@@ -1,0 +1,73 @@
+// ========================================
+// ENROLL PAGE — Checkbox Gate + Stripe Embedded Checkout
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ctaButton = document.getElementById('enroll-cta');
+    const checkoutContainer = document.getElementById('checkout-container');
+    let checkoutInitiated = false;
+
+    // Handle CTA click — initialize Stripe Embedded Checkout
+    ctaButton.addEventListener('click', async () => {
+        if (checkoutInitiated) return;
+        checkoutInitiated = true;
+
+        // Update button state
+        ctaButton.textContent = 'Loading checkout...';
+        ctaButton.classList.add('btn-disabled');
+        ctaButton.disabled = true;
+
+        try {
+            // Create checkout session via serverless function
+            const response = await fetch('/api/create-checkout-session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                console.error('Checkout session error:', errData);
+                throw new Error(errData.error || 'Failed to create checkout session');
+            }
+
+            const { clientSecret } = await response.json();
+
+            // Initialize Stripe
+            const publishableKey = document.querySelector('meta[name="stripe-key"]')?.content;
+            if (!publishableKey) {
+                throw new Error('Stripe publishable key not configured');
+            }
+
+            const stripe = Stripe(publishableKey);
+
+            // Mount Embedded Checkout
+            const checkout = await stripe.initEmbeddedCheckout({ clientSecret });
+
+            // Hide the enrollment form content above checkout
+            document.querySelector('.enroll-includes').style.display = 'none';
+            document.querySelector('.enroll-price-row').style.display = 'none';
+            document.querySelector('.enroll-digital-note').style.display = 'none';
+            ctaButton.style.display = 'none';
+
+            // Show checkout container and mount
+            checkoutContainer.style.display = 'block';
+            checkout.mount('#checkout-container');
+
+        } catch (err) {
+            console.error('Checkout error:', err);
+            ctaButton.innerHTML = 'Join Now <i class="fa-solid fa-lock"></i>';
+            ctaButton.classList.remove('btn-disabled');
+            ctaButton.disabled = false;
+            checkoutInitiated = false;
+
+            // Show error message
+            const existingError = document.querySelector('.enroll-error');
+            if (existingError) existingError.remove();
+
+            const errorMsg = document.createElement('p');
+            errorMsg.className = 'enroll-error';
+            errorMsg.textContent = 'Something went wrong. Please try again.';
+            ctaButton.parentNode.insertBefore(errorMsg, ctaButton.nextSibling);
+        }
+    });
+});

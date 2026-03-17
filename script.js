@@ -1,0 +1,193 @@
+// ========================================
+// BRAIN ROT MAFIA — Scripts
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Scroll Reveal (IntersectionObserver)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Navbar scroll state
+    const navbar = document.getElementById('navbar');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    navToggle.addEventListener('click', () => {
+        navbar.classList.toggle('nav-open');
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navbar.classList.remove('nav-open');
+        });
+    });
+
+    // FAQ accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close all
+            faqItems.forEach(other => {
+                other.classList.remove('active');
+                other.querySelector('.faq-answer').style.maxHeight = '0';
+            });
+
+            // Open clicked (if it wasn't already open)
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Infinite carousel auto-scroll (both mobile & desktop)
+    const carousel = document.querySelector('.carousel-wrapper');
+    if (carousel) {
+        const scrollTrack = carousel.querySelector('.examples-scroll');
+        let autoScrollSpeed = 1;
+        let autoScrollId = null;
+        let userInteracting = false;
+        let resumeTimeout = null;
+
+        // Clone all cards for seamless infinite loop
+        const cards = scrollTrack.querySelectorAll('.example-card');
+        cards.forEach(card => {
+            scrollTrack.appendChild(card.cloneNode(true));
+        });
+
+        function startAutoScroll() {
+            if (autoScrollId) return;
+            autoScrollId = requestAnimationFrame(function tick() {
+                if (!userInteracting) {
+                    carousel.scrollLeft += autoScrollSpeed;
+                    // When we've scrolled past the original set, jump back seamlessly
+                    const halfScroll = scrollTrack.scrollWidth / 2;
+                    if (carousel.scrollLeft >= halfScroll) {
+                        carousel.scrollLeft -= halfScroll;
+                    }
+                }
+                autoScrollId = requestAnimationFrame(tick);
+            });
+        }
+
+        // Pause on touch
+        carousel.addEventListener('touchstart', () => {
+            userInteracting = true;
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', () => {
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
+        }, { passive: true });
+
+        // Desktop drag-to-scroll
+        let isDragging = false;
+        let startX = 0;
+        let scrollStart = 0;
+
+        carousel.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            userInteracting = true;
+            startX = e.pageX;
+            scrollStart = carousel.scrollLeft;
+            carousel.style.cursor = 'grabbing';
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.pageX - startX;
+            carousel.scrollLeft = scrollStart - dx;
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            carousel.style.cursor = 'grab';
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
+        });
+
+        // Pause on scroll wheel
+        carousel.addEventListener('wheel', () => {
+            userInteracting = true;
+            if (resumeTimeout) clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(() => { userInteracting = false; }, 3000);
+        }, { passive: true });
+
+        carousel.style.cursor = 'grab';
+
+        startAutoScroll();
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href');
+            if (href === '#') return;
+
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                const navHeight = navbar.offsetHeight;
+                // For the pricing section, scroll so the full card + CTA is visible
+                let targetPos;
+                if (href === '#pricing') {
+                    // Align top of viewport to LIFETIME ACCESS badge,
+                    // ensuring Get Instant Access button is fully visible at bottom
+                    const badge = target.querySelector('.pricing-badge');
+                    const ctaBtn = target.querySelector('.btn-full');
+                    if (badge && ctaBtn) {
+                        const badgeTop = badge.getBoundingClientRect().top + window.scrollY - navHeight - 10;
+                        const ctaBottom = ctaBtn.getBoundingClientRect().bottom + window.scrollY + 20;
+                        const neededHeight = ctaBottom - badgeTop;
+                        if (neededHeight <= window.innerHeight) {
+                            // Both fit — align badge to top of viewport
+                            targetPos = badgeTop;
+                        } else {
+                            // Too tall — scroll so CTA bottom is at viewport bottom
+                            targetPos = ctaBottom - window.innerHeight;
+                        }
+                    } else {
+                        targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 10;
+                    }
+                } else {
+                    targetPos = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                }
+                window.scrollTo({ top: targetPos, behavior: 'smooth' });
+            }
+        });
+    });
+
+});
