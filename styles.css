@@ -794,6 +794,30 @@ body {
     color: var(--text-muted);
 }
 
+.example-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.example-stat-views,
+.example-stat-earnings {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.example-stat-views i,
+.example-stat-earnings i {
+    font-size: 0.65rem;
+}
+
 /* ========================================
    PRICING
    ======================================== */
