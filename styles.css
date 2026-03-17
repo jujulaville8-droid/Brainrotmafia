@@ -796,26 +796,36 @@ body {
 
 .example-stats {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.3rem;
     margin-top: 0.6rem;
     padding-top: 0.6rem;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.example-stat-views,
+.example-stat-views {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
 .example-stat-earnings {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.75rem;
+    gap: 0.4rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--accent-neon);
 }
 
 .example-stat-views i,
 .example-stat-earnings i {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
+    width: 14px;
+    text-align: center;
 }
 
 /* ========================================
