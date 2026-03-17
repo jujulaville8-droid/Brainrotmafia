@@ -1042,6 +1042,96 @@ body {
 }
 
 /* ========================================
+   ABOUT / THE MOVEMENT
+   ======================================== */
+.about-brm-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-brm-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-brm-logo img {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 50%;
+    background-color: #9b4dff;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(155, 77, 255, 0.2), 0 0 80px rgba(57, 255, 20, 0.05);
+}
+
+.about-brm-text .eyebrow {
+    margin-bottom: 0.75rem;
+}
+
+.about-brm-text h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.about-brm-text p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.about-brm-values {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.about-brm-value {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1rem;
+    background: rgba(57, 255, 20, 0.06);
+    border: 1px solid rgba(57, 255, 20, 0.12);
+    border-radius: 100px;
+}
+
+.about-brm-value i {
+    color: var(--accent-neon);
+    font-size: 0.9rem;
+}
+
+.about-brm-value span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .about-brm-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .about-brm-logo img {
+        max-width: 220px;
+    }
+
+    .about-brm-values {
+        justify-content: center;
+    }
+}
+
+/* ========================================
    FINAL CTA
    ======================================== */
 .final-cta {
