@@ -257,21 +257,25 @@ body {
 }
 
 .hero-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.hero-content {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
 }
 
-.hero-sub {
-    margin-left: auto;
-    margin-right: auto;
+/* On desktop, VSL breaks out to the right column */
+@media (min-width: 769px) {
+    .hero-content {
+        position: relative;
+    }
+    .hero-content .hero-vsl {
+        position: absolute;
+        left: calc(100% + 4rem);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        margin-top: 0;
+    }
 }
 
 .badge {
@@ -1173,9 +1177,19 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+    }
+
     .hero-content .badge { order: 1; }
     .hero-content h1 { order: 2; }
-    .hero-content .hero-vsl { order: 3; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .hero-content .hero-vsl { order: 3; position: relative; left: auto; top: auto; transform: none; width: 100%; margin: 1.5rem auto 0.5rem; max-width: 500px; }
     .hero-sub { order: 4; }
     .hero-ctas { order: 5; }
     .hero-proof { order: 6; margin-top: 1.5rem; margin-bottom: 0.5rem; }
